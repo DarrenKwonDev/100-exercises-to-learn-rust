@@ -11,3 +11,56 @@
 // Integration here has a very specific meaning: they test **the public API** of your project.
 // You'll need to pay attention to the visibility of your types and methods; integration
 // tests can't access private or `pub(crate)` items.
+
+use core::panic;
+
+pub struct Order {
+    product_name: String,
+    quantity: u32,
+    unit_price: u32,
+}
+
+impl Order {
+    pub fn total(&self) -> u32 {
+        return self.quantity * self.unit_price;
+    }
+
+    pub fn set_product_name(&mut self, name: String) {
+        self.product_name = name;
+    }
+    pub fn set_quantity(&mut self, quantity: u32) {
+        self.quantity = quantity;
+    }
+    pub fn set_unit_price(&mut self, unit_price: u32) {
+        self.unit_price = unit_price;
+    }
+    
+    pub fn new(t: String, q: u32, u: u32) -> Self {
+        //   It should keep track of three pieces of information: `product_name`, `quantity`, and `unit_price`.
+        //   The product name can't be empty and it can't be longer than 300 bytes.
+        //   The quantity must be strictly greater than zero.
+        //   The unit price is in cents and must be strictly greater than zero.
+        if t.is_empty() || t.len() >= 300 {
+            panic!("no");
+        }
+        if q <= 0 || u <= 0 {
+            panic!("no");
+        }
+
+        Self {
+            product_name: t,
+            quantity: q,
+            unit_price: u
+        }
+    }
+
+    pub fn product_name(&self) -> &String {
+        &self.product_name
+    }
+    pub fn quantity(&self) -> &u32 {
+        &self.quantity
+    }
+    pub fn unit_price(&self) -> &u32 {
+        &self.unit_price
+    }
+}
