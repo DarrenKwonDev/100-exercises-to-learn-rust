@@ -2,9 +2,10 @@
 //  to get the code to compile.
 
 pub fn summary(ticket: Ticket) -> (Ticket, Summary) {
-    (ticket, ticket.summary())
+    (ticket.clone(), ticket.summary())
 }
 
+#[derive(Clone)]
 pub struct Ticket {
     pub title: String,
     pub description: String,
@@ -12,6 +13,7 @@ pub struct Ticket {
 }
 
 impl Ticket {
+    // self를 호출하므로 소유권을 가져옴.
     pub fn summary(self) -> Summary {
         Summary {
             title: self.title,
